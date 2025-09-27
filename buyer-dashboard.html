@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buyer Dashboard</title>
+  <style>
+    .artwork {
+      border: 1px solid #ddd;
+      padding: 15px;
+      margin: 10px;
+      border-radius: 10px;
+      width: 250px;
+      text-align: center;
+    }
+    img {
+      max-width: 100%;
+      border-radius: 8px;
+    }
+    .grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Available Artworks</h2>
+  <div class="grid" id="artworks"></div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+
+    // ✅ Firebase config (apna config daalo)
+    const firebaseConfig = {
+  apiKey: "AIzaSyCMmD7_XeioZvc724W_xCJsAYBOkQsYo48",
+  authDomain: "artisans-hub-8743b.firebaseapp.com",
+  projectId: "artisans-hub-8743b",
+  storageBucket: "artisans-hub-8743b.firebasestorage.app",
+  messagingSenderId: "737901091935",
+  appId: "1:737901091935:web:bc8c245ebebbdac6434fea"
+};
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    async function loadArtworks() {
+      const querySnapshot = await getDocs(collection(db, "artworks"));
+      const artworksDiv = document.getElementById("artworks");
+
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        const artworkCard = `
+          <div class="artwork">
+            <img src="${data.imageUrl}" alt="${data.name}">
+            <h3>${data.name}</h3>
+            <p>${data.description}</p>
+            <p><b>Price:</b> ₹${data.price}</p>
+            <p><b>Customization:</b> ${data.customization}</p>
+            <button onclick="alert('Buy feature coming soon!')">Buy</button>
+          </div>
+        `;
+        artworksDiv.innerHTML += artworkCard;
+      });
+    }
+
+    loadArtworks();
+  </script>
+</body>
+</html>

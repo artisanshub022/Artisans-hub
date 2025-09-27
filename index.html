@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Artistsans Hub - Login</title>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.20.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.20.0/firebase-auth.js"></script>
+
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; padding: 40px; }
+    input, button { margin: 8px; padding: 10px; width: 250px; }
+    .box { border: 1px solid #ccc; padding: 20px; display: inline-block; border-radius: 8px; }
+  </style>
+</head>
+<body>
+  <h1>Artistsans Hub 🎨</h1>
+  <div class="box">
+    <h2>Login / Sign Up</h2>
+    <input type="email" id="email" placeholder="Enter email"><br>
+    <input type="password" id="password" placeholder="Enter password"><br>
+    <button onclick="signUp()">Sign Up</button>
+    <button onclick="login()">Login</button><br><br>
+    <button onclick="googleLogin()">Sign in with Google</button>
+  </div>
+
+  <script>
+    // ✅ Replace with your Firebase config
+    const firebaseConfig = {
+  apiKey: "AIzaSyCMmD7_XeioZvc724W_xCJsAYBOkQsYo48",
+  authDomain: "artisans-hub-8743b.firebaseapp.com",
+  projectId: "artisans-hub-8743b",
+  storageBucket: "artisans-hub-8743b.firebasestorage.app",
+  messagingSenderId: "737901091935",
+  appId: "1:737901091935:web:bc8c245ebebbdac6434fea"
+};
+
+    // Init Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    // Sign Up
+    function signUp() {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      auth.createUserWithEmailAndPassword(email, password)
+        .then(userCred => {
+          alert("Account created: " + userCred.user.email);
+        })
+        .catch(err => alert(err.message));
+    }
+
+    // Login
+    function login() {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      auth.signInWithEmailAndPassword(email, password)
+        .then(userCred => {
+          alert("Welcome " + userCred.user.email);
+          // ✅ Redirect based on role
+          window.location.href = "artist-dashboard.html"; // (later role check karenge)
+        })
+        .catch(err => alert(err.message));
+    }
+
+    // Google Login
+    function googleLogin() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      auth.signInWithPopup(provider)
+        .then(result => {
+          alert("Google Login: " + result.user.email);
+          window.location.href = "buyer-dashboard.html"; // (example redirect)
+        })
+        .catch(err => alert(err.message));
+    }
+  </script>
+</body>
+</html>

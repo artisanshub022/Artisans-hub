@@ -1,0 +1,16 @@
+:root{--accent:#16a085;--bg:#f8f9fb;--card:#fff}
+*{box-sizing:border-box;font-family:Inter,system-ui,Arial}
+body{margin:0;background:var(--bg);color:#222}
+.center{display:flex;align-items:center;justify-content:center;height:100vh}
+.container{max-width:1000px;margin:20px auto;padding:10px}
+.card{background:var(--card);padding:16px;border-radius:10px;box-shadow:0 6px 14px rgba(0,0,0,0.06);margin:10px 0}
+input,textarea{width:100%;padding:10px;margin:8px 0;border:1px solid #ddd;border-radius:6px}
+.btn{background:var(--accent);color:#fff;padding:10px 14px;border:none;border-radius:8px;cursor:pointer}
+.btn.google{background:#4285f4}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+header{display:flex;align-items:center;gap:12px;padding:12px}
+header a{color:#333;text-decoration:none}
+#artList,#artistList{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.art-card{border:1px solid #eee;padding:8px;border-radius:8px;background:#fff}
+.art-card img{width:100%;height:160px;object-fit:cover;border-radius:6px}
+@media(max-width:600px){.center{height:auto;padding:40px}}
